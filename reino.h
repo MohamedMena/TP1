@@ -68,7 +68,4 @@ int comparar_por_ejercito (region_t region_1, region_t region_2);
 */
 int comparar_por_nombre (region_t region_1, region_t region_2);
 
-int obtener_cantidad_ejercito_region(re);
-
-
 #endif

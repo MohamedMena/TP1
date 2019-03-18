@@ -81,3 +81,23 @@ int comparar_por_ejercito (region_t region_1, region_t region_2){
 int comparar_por_nombre (region_t region_1, region_t region_2){
 	return strcmp(region_1->nombre, region_2->nombre);
 }
+
+void swap_regiones(region_t* region_uno, region_t* region_dos){
+	region_t region_aux = *region_uno;
+	*region_uno = *region_dos;
+	*region_dos = region_aux;
+}
+
+void ordenar_reino (reino_t* reino, int (*comparar_regiones) (region_t, region_t)){
+
+	if(!reino) return;
+	for(int i = reino->cantidad_regiones-1; i > 0; i--){
+		for(int j = 0; j < i; j++){
+			int pos_maximo = 0;
+			if(comparar_regiones(reino->regiones[j], reino->regiones[pos_maximo]) > 0){
+				pos_maximo = j;
+			}
+		}
+		swap_regiones(reino->regiones[j], reino->regiones[i]);
+	}
+}
