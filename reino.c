@@ -46,22 +46,8 @@ int agregar_region (reino_t* reino, region_t region){
 void listar_regiones (reino_t* reino){
 	if(!reino) return;
 	for(int i = 0; i < reino->cantidad_regiones; i++){
-		fprintf(stdout, "%s %s %i\n", reino->regiones[i].nombre, reino->regiones[i].lema, reino->regiones[i].ejercito);
+		fprintf(stdout, "%s;%s;%i\n", reino->regiones[i].nombre, reino->regiones[i].lema, reino->regiones[i].ejercito);
 	}
-}
-
-int comparar_por_ejercito (region_t region_1, region_t region_2){
-	if(region_1.ejercito < region_2.ejercito){
-		return -1;
-	}else if(region_1.ejercito > region_2.ejercito){
-		return 1;
-	}
-
-	return 0;
-}
-
-int comparar_por_nombre (region_t region_1, region_t region_2){
-	return strcmp(region_1.nombre, region_2.nombre);
 }
 
 void swap_regiones(region_t* region_uno, region_t* region_dos){

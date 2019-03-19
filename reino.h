@@ -59,22 +59,4 @@ void ordenar_reino (reino_t* reino, int (*comparar_regiones) (region_t, region_t
 */
 void listar_regiones (reino_t* reino);
 
-/*
-* Comparará 2 regiones según la cantidad de ejército que tienen .
-* Devolverá :
-* -1 si el ejército de la region 1 es menor al de la región 2.
-* 0 si el ejército de la region 1 es igual al de la región 2.
-* 1 si el ejército de la region 1 es mayor al de la región 2.
-*/
-int comparar_por_ejercito (region_t region_1, region_t region_2);
-
-/*
-* Comparará 2 regiones según el nombre .
-* Devolverá :
-* -1 si nombre de la region 1 es menor al de la región 2.
-* 0 si el nombre de la region 1 es igual al de la región 2.
-* 1 si el nombre de la region 1 es mayor al de la región 2.
-*/
-int comparar_por_nombre (region_t region_1, region_t region_2);
-
 #endif

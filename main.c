@@ -5,6 +5,34 @@
 #include <string.h>
 #include <stdbool.h>
 
+/*
+* Comparará 2 regiones según la cantidad de ejército que tienen .
+* Devolverá :
+* -1 si el ejército de la region 1 es menor al de la región 2.
+* 0 si el ejército de la region 1 es igual al de la región 2.
+* 1 si el ejército de la region 1 es mayor al de la región 2.
+*/
+int comparar_por_ejercito (region_t region_1, region_t region_2){
+	if(region_1.ejercito < region_2.ejercito){
+		return -1;
+	}else if(region_1.ejercito > region_2.ejercito){
+		return 1;
+	}
+
+	return 0;
+}
+
+/*
+* Comparará 2 regiones según el nombre .
+* Devolverá :
+* -1 si nombre de la region 1 es menor al de la región 2.
+* 0 si el nombre de la region 1 es igual al de la región 2.
+* 1 si el nombre de la region 1 es mayor al de la región 2.
+*/
+int comparar_por_nombre (region_t region_1, region_t region_2){
+	return strcmp(region_1.nombre, region_2.nombre);
+}
+
 int main(void){
 
 	FILE* archivo_reino = fopen("reino.txt", "r");
