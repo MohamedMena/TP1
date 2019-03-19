@@ -1,16 +1,5 @@
 #include "reino.h"
-
-struct region{
-char nombre [50];
-char lema [50];
-int ejercito;
-};
-
-struct reino{
-region_t* regiones;
-int cantidad_regiones;
-int maximo_regiones;
-};
+#include <string.h>
 
 reino_t* crear_reino (size_t maximo_regiones){
 
@@ -44,10 +33,10 @@ int agregar_region (reino_t* reino, region_t region){
 	if(!reino) return 1;
 	if(reino->cantidad_regiones == reino->maximo_regiones-1) return 1;
 
-	region_t* region_nueva = reino->regiones[cantidad_regiones];
-	strcpy(region_nueva->nombre, region->nombre);
-	strcpy(region_nueva->lema, region->lema);
-	region_nueva->ejercito = region->ejercito;
+	region_t* region_nueva = &(reino->regiones[reino->cantidad_regiones]);
+	strcpy(region_nueva->nombre, region.nombre);
+	strcpy(region_nueva->lema, region.lema);
+	region_nueva->ejercito = region.ejercito;
 
 	reino->cantidad_regiones++;
 
@@ -57,21 +46,14 @@ int agregar_region (reino_t* reino, region_t region){
 void listar_regiones (reino_t* reino){
 	if(!reino) return;
 	for(int i = 0; i < reino->cantidad_regiones+1; i++){
-		fprintf(stdout, "%s\n", reino->regiones[i]->nombre);
+		fprintf(stdout, "%s\n", reino->regiones[i].nombre);
 	}
-}
-
-
-void ordenar_reino (reino_t* reino, int (*comparar_regiones) (region_t, region_t)){
-	if(!reino) return;
-
-
 }
 
 int comparar_por_ejercito (region_t region_1, region_t region_2){
 	if(region_1.ejercito < region_2.ejercito){
 		return -1;
-	}else if(region_1 > region_2.ejercito){
+	}else if(region_1.ejercito > region_2.ejercito){
 		return 1;
 	}
 
@@ -79,7 +61,7 @@ int comparar_por_ejercito (region_t region_1, region_t region_2){
 }
 
 int comparar_por_nombre (region_t region_1, region_t region_2){
-	return strcmp(region_1->nombre, region_2->nombre);
+	return strcmp(region_1.nombre, region_2.nombre);
 }
 
 void swap_regiones(region_t* region_uno, region_t* region_dos){
@@ -92,12 +74,12 @@ void ordenar_reino (reino_t* reino, int (*comparar_regiones) (region_t, region_t
 
 	if(!reino) return;
 	for(int i = reino->cantidad_regiones-1; i > 0; i--){
+		int pos_maximo = 0;
 		for(int j = 0; j < i; j++){
-			int pos_maximo = 0;
 			if(comparar_regiones(reino->regiones[j], reino->regiones[pos_maximo]) > 0){
 				pos_maximo = j;
 			}
 		}
-		swap_regiones(reino->regiones[j], reino->regiones[i]);
+		swap_regiones(&(reino->regiones[pos_maximo]), &(reino->regiones[i]));
 	}
 }

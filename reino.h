@@ -1,14 +1,23 @@
 #ifndef REINO_H
 #define REINO_H
 
+#include <stdio.h>
+#include <stdlib.h>
 /* ******************************************************************
  *                DEFINICION DE LOS TIPOS DE DATOS
  * *****************************************************************/
-struct region;
-typedef struct region;
 
-struct reino;
-typedef struct reino;
+typedef struct region{
+	char nombre [50];
+	char lema [50];
+	int ejercito;
+}region_t;
+
+typedef struct reino{
+	region_t* regiones;
+	int cantidad_regiones;
+	size_t maximo_regiones;
+}reino_t;
 
 /* ******************************************************************
  *                DEFINICION DE LAS FUNCIONES
