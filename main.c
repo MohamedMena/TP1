@@ -13,9 +13,9 @@
 * 1 si el ejército de la region 1 es mayor al de la región 2.
 */
 int comparar_por_ejercito (region_t region_1, region_t region_2){
-	if(region_1.ejercito < region_2.ejercito){
+	if(obtener_cantidad_ejercito(region_1) < obtener_cantidad_ejercito(region_2)){
 		return -1;
-	}else if(region_1.ejercito > region_2.ejercito){
+	}else if(obtener_cantidad_ejercito(region_1) > obtener_cantidad_ejercito(region_2)){
 		return 1;
 	}
 
@@ -30,7 +30,33 @@ int comparar_por_ejercito (region_t region_1, region_t region_2){
 * 1 si el nombre de la region 1 es mayor al de la región 2.
 */
 int comparar_por_nombre (region_t region_1, region_t region_2){
-	return strcmp(region_1.nombre, region_2.nombre);
+	char* nombre1 = obtener_nombre_region(region_1);
+	char* nombre2 = obtener_nombre_region(region_2);
+	size_t largo_nombre_1 = strlen(nombre1);
+	size_t largo_nombre_2 = strlen(nombre2);
+
+	for(size_t i = 0; i < largo_nombre_1 && i < largo_nombre_2; i++){
+		if(nombre1[i] < nombre2[i]){
+			free(nombre1);
+			free(nombre2);
+			return -1;
+		}else if(nombre1[i] > nombre2[i]){
+			free(nombre1);
+			free(nombre2);
+			return 1;
+		}
+	}
+
+	free(nombre1);
+	free(nombre2);
+
+	if(largo_nombre_1 < largo_nombre_2){
+		return -1;
+	}else if(largo_nombre_1 > largo_nombre_2){
+		return 1;
+	}
+
+	return 0;
 }
 
 int main(void){
@@ -53,21 +79,15 @@ int main(void){
 		}
 
 		while(getline(&linea, &tamanio_linea, archivo_reino) != -1){
-			region_t nueva_region;
-			char* datos_region = strtok(linea, ";");
-			int i = 0;
-			while(datos_region != NULL){
-				if(i == 0){
-					strcpy(nueva_region.nombre, datos_region);
-				}else if(i == 1){
-					strcpy(nueva_region.lema, datos_region);
-				}else if(i == 2){
-					nueva_region.ejercito = atoi(datos_region);
-				}
-				i++;
-				datos_region = strtok(NULL, ";");
+			region_t* nueva_region = crear_region(linea);
+			if(!nueva_region){
+				fclose(archivo_reino);
+				free(linea);
+				destruir_reino(nuevo_reino);
+				return 0;
 			}
-			agregar_region(nuevo_reino, nueva_region);
+			agregar_region(nuevo_reino, *nueva_region);
+			free(nueva_region);
 		}
 		free(linea);
 		fclose(archivo_reino);

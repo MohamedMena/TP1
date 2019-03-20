@@ -54,9 +54,18 @@ int agregar_region (reino_t* reino, region_t region);
 */
 void ordenar_reino (reino_t* reino, int (*comparar_regiones) (region_t, region_t));
 
+//Crea una nueva region a partir de los datos en formato csv
+region_t* crear_region(char* datos_region);
+
 /*
 * Listará por pantalla las regiones del reino .
 */
 void listar_regiones (reino_t* reino);
+
+// Devuelve el nombre de una region
+char* obtener_nombre_region(region_t region);
+
+// Devuelve la cantidad de ejercito de una region
+int obtener_cantidad_ejercito(region_t region);
 
 #endif

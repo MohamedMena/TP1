@@ -69,3 +69,34 @@ void ordenar_reino (reino_t* reino, int (*comparar_regiones) (region_t, region_t
 		swap_regiones(&(reino->regiones[pos_maximo]), &(reino->regiones[i]));
 	}
 }
+
+char* obtener_nombre_region(region_t region){
+	char* nombre = malloc(sizeof(char)*50);
+	strcpy(nombre, region.nombre);
+	return nombre;
+}
+
+int obtener_cantidad_ejercito(region_t region){
+	return region.ejercito;
+}
+
+region_t* crear_region(char* datos_region){
+	region_t* nueva_region = malloc(sizeof(region_t));
+
+	if(!nueva_region) return NULL;
+
+	char* datos_region_separados = strtok(datos_region, ";");
+	int i = 0;
+	while(datos_region_separados != NULL){
+		if(i == 0){
+			strcpy(nueva_region->nombre, datos_region_separados);
+		}else if(i == 1){
+			strcpy(nueva_region->lema, datos_region_separados);
+		}else if(i == 2){
+			nueva_region->ejercito = atoi(datos_region_separados);
+		}
+		i++;
+		datos_region_separados = strtok(NULL, ";");
+	}
+	return nueva_region;
+}
